@@ -72,44 +72,4 @@ The map file should look like this (chr, pos, rsid, allele1, allele2):
 1 10002 rs1570391692 A C
 1 10003 rs1570391694 A C
 ```
-The file has 1,118,410,664 lines! Filter the allele columns to only keep lines where they both contain one character only.
-
-``` bash
-awk 'length($4)==1 && length($5)==1' GRCh37_GCF_000001405.25_map.txt > map_filtered.txt
-```
-
-```bash
-# awk version of table() from R
-awk -F" " '{arr[$4]++}END{for (a in arr) print a, arr[a]}' test2.txt
-
-# Find all chrm numbers in map file
-awk -F" " '{arr[$1]++}END{for (a in arr) print a, arr[a]}' map_sv_filtered.txt > table.txt
-
-# there are patches included
-sed '/H/d' map_sv_filtered.txt > map_filtered.txt
-
-# test again
-awk -F" " '{arr[$1]++}END{for (a in arr) print a, arr[a]}' map_filtered.txt > table_f.txt
-cat table_f.txt
-we are now left with chromosomes 1-22, X, Y and MT
-
-# Do the same for LAuras sumstats
-awk -F: '{arr[$1]++}END{for (a in arr) print a, arr[a]}' female_infertility_analysis1_UKBB_Finngen_EstBB_GandH_noMACfilter_March20231.out > table_laura.txt
-
-# Remove patches (any chrom starting with H), mitochondrial and the Y chomosome.
-sed -e '/H/d' -e '/MT/d' -e '/Y/d' map_sv_filtered.txt > map_filtered2.txt
-
-# check this
-awk -F" " '{arr[$1]++}END{for (a in arr) print a, arr[a]}' map_filtered2.txt > table_f2.txt
-wc -l map_filtered2.txt
-
-# Do the same for samvidas
-awk -F: '{arr[$1]++}END{for (a in arr) print a, arr[a]}' FSH_F_EUR_filtered.txt > table_samvida.txt
-cat table_samvida.txt
-# we have chr1-23
-
-# Remove doubles and M and Y
-
-# Make a MarkerName map file - this will take a while so use a few cores or send a script off
-awk '{if ($4 < $5) {a1=$4; a2=$5} else {a1=$5; a2=$4}; print $1":"$2":"a1"_"a2,$3}' map_filtered2.txt > MarkerName_map_GRCh37.txt
-```
+The file has 1,118,410,664 lines! Filter further using the manipulate_map_file.sh script.
