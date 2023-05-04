@@ -108,7 +108,7 @@ awk -F: '{arr[$1]++}END{for (a in arr) print a, arr[a]}' FSH_F_EUR_filtered.txt 
 cat table_samvida.txt
 # we have chr1-23
 
-# remove doubles and M and Y
+# Remove doubles and M and Y
 
 # Make a MarkerName map file - this will take a while so use a few cores or send a script off
 awk '{if ($4 < $5) {a1=$4; a2=$5} else {a1=$5; a2=$4}; print $1":"$2":"a1"_"a2,$3}' map_filtered2.txt > MarkerName_map_GRCh37.txt
