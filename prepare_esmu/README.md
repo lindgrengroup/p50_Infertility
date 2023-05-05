@@ -7,7 +7,7 @@ First, preprocess the count data using the R scripts, if needed - save in H5AD f
 # Load R
 module load R/4.1.2-foss-2021b
 module load R-bundle-Bioconductor/3.14-foss-2021b-R-4.1.2
-Rscript <file_name.R>
+sh <file_name.R>
 ```
 
 ### 2. Use python to run CELLEX
