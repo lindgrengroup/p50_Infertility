@@ -56,7 +56,7 @@ out_dir <- paste0("cluster_markers/", dataset)
 dir.create(out_dir)
 
 # Input file - dataset is processed (already normalised) and unfiltered (for the samples we want to keep)
-seurat_in <- paste0("counts/",dataset,"/_aux.seurat.shared.rds")
+seurat_in <- paste0("data/counts/",dataset,"/_aux.seurat.shared.rds")
 
 # Load in Seurat object
 seurat_ob <- readRDS(file = seurat_in)
